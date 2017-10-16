@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Test</title>
+  <meta name="description" content="Josephus">
+  <meta name="author" content="Yash Ketkar">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" rel="stylesheet">
+  <!--link rel="stylesheet" href="css/styles.css?v=1.0"-->
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<style>
+  h1 {
+    font-family: 'Source Sans Pro', serif;
+    font-size: 48px;
+  }
+</style>
+<body>
+  <!--script src="js/scripts.js"></script-->
+  <!--h1>Test</h1-->
+  <!-- <img src="chair.png"></img> -->
+  <canvas id="myCanvas" width="500" height="500"
+  style="border:1px solid #d3d3d3;">
+  Your browser does not support the HTML5 canvas tag.
+  </canvas>
+  <script>
+  window.onload = function() {
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      // var img = document.getElementById("scream");
+      var base_image = new Image();
+      base_image.onload = function()
+      {
+        // test that the image was loaded
+        console.log(base_image);  // or console.log if you prefer
+        ctx.translate(250, 250);
+        ctx.save(); // save current state
+        ctx.drawImage(base_image, 200, 0, 20, 20);
+        ctx.drawImage(base_image, -200, 0, 20, 20);
+        ctx.drawImage(base_image, -10, -10, 20, 20);
+        ctx.rotate(3.14); // rotate
+        ctx.drawImage(base_image, -10, -10, 20, 20);
+        ctx.restore(); // restore original states (no rotation etc)
+      }
+      base_image.src = "chair.png";
+  };
+  </script>
+</body>
+</html>
