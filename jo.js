@@ -15,30 +15,25 @@ WebFontConfig = {
 
 function preload() {
     //  Load the Google WebFont Loader script
-    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    game.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    game.load.image('chair', 'chair.png');
 }
 
-var text = null;
-var grd;
-
 function create() {
-    game.stage.setBackgroundColor(0x2d2d2d);
+  game.stage.backgroundColor = "#FFFFFF";
+  var test = game.add.sprite(0, 0, 'chair');
+  //  Set the scale of the sprite to the random value
+  test.scale.setTo(0.1, 0.1);
+  console.log(test);
+    console.log(test.scale);
 }
 
 function createText() {
-    text = game.add.text(game.world.centerX, game.world.centerY, "- phaser -\nrocking with\ngoogle web fonts");
-    text.anchor.setTo(0.5);
+    text = game.add.text(game.world.centerX, game.world.centerY, "google web fonts demo");
     text.font = 'Source Sans Pro';
-    text.fontSize = 60;
+    text.fontSize = 16;
     //  x0, y0 - x1, y1
-    grd = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
-    grd.addColorStop(0, '#8ED6FF');
-    grd.addColorStop(1, '#004CB3');
-    text.fill = grd;
     text.align = 'center';
-    text.stroke = '#000000';
-    text.strokeThickness = 2;
-    text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
     text.inputEnabled = true;
     text.input.enableDrag();
     text.events.onInputOver.add(over, this);
@@ -46,7 +41,6 @@ function createText() {
 }
 
 function out() {
-    text.fill = grd;
 }
 
 function over() {
