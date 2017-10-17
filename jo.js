@@ -1,45 +1,54 @@
-var canvas;
-var ctx;
 
-function setupCanvas() {
-    canvas = document.getElementById("myCanvas");
-    ctx = canvas.getContext("2d");
-    var base_image = new Image();
-    base_image.onload = function() {
-        console.log(base_image);
-        ctx.translate(600, 500);
-        var theta = 0;
-        var alpha = Math.PI / 2;
-        for (i = 0; i < 100; i++) {
-            var x = 350 * Math.cos(alpha - theta);
-            var y = 350 * Math.sin(alpha - theta);
-            rot_image = rotateAndCache(base_image, theta)
-            ctx.drawImage(rot_image, x, y, 18, 18);
-            var x2 = 375 * Math.cos(alpha - theta);
-            var y2 = 375 * Math.sin(alpha - theta);
-            ctx.font = "16px Source Sans Pro";
-            ctx.fillText(i+1,x2,y2);
-            theta += Math.PI/50;
-        }
+var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', { preload: preload, create: create });
+
+//  The Google WebFont Loader will look for this object, so create it before loading the script.
+WebFontConfig = {
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Source Sans Pro', 'serif']
     }
-    base_image.src = "chair.svg";
-    fitToContainer(canvas);
-}
-rotateAndCache = function(image, angle) {
-    var offscreenCanvas = document.createElement('canvas');
-    var offscreenCtx = offscreenCanvas.getContext('2d');    
-    var size = Math.max(image.width, image.height);
-    offscreenCanvas.width = size;
-    offscreenCanvas.height = size;
-    offscreenCtx.translate(size / 2, size / 2);
-    offscreenCtx.rotate(2 * Math.PI - angle);
-    offscreenCtx.drawImage(image, -(image.width / 2), -(image.height / 2));
-    return offscreenCanvas;
+};
+
+function preload() {
+    //  Load the Google WebFont Loader script
+    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 }
 
-function fitToContainer(canvas) {
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+var text = null;
+var grd;
+
+function create() {
+    game.stage.setBackgroundColor(0x2d2d2d);
+}
+
+function createText() {
+    text = game.add.text(game.world.centerX, game.world.centerY, "- phaser -\nrocking with\ngoogle web fonts");
+    text.anchor.setTo(0.5);
+    text.font = 'Source Sans Pro';
+    text.fontSize = 60;
+    //  x0, y0 - x1, y1
+    grd = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
+    grd.addColorStop(0, '#8ED6FF');
+    grd.addColorStop(1, '#004CB3');
+    text.fill = grd;
+    text.align = 'center';
+    text.stroke = '#000000';
+    text.strokeThickness = 2;
+    text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+    text.inputEnabled = true;
+    text.input.enableDrag();
+    text.events.onInputOver.add(over, this);
+    text.events.onInputOut.add(out, this);
+}
+
+function out() {
+    text.fill = grd;
+}
+
+function over() {
+    text.fill = '#ff00ff';
 }
