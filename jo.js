@@ -7,15 +7,19 @@ function setupCanvas() {
     var base_image = new Image();
     base_image.onload = function() {
         console.log(base_image);
-        ctx.translate(685, 472);
+        ctx.translate(600, 500);
         var theta = 0;
         var alpha = Math.PI / 2;
-        for (i = 0; i < 50; i++) {
-            var x = 400 * Math.cos(alpha - theta);
-            var y = 400 * Math.sin(alpha - theta);
+        for (i = 0; i < 100; i++) {
+            var x = 350 * Math.cos(alpha - theta);
+            var y = 350 * Math.sin(alpha - theta);
             rot_image = rotateAndCache(base_image, theta)
-            ctx.drawImage(rot_image, x, y, 20, 20);
-            theta += 0.1;
+            ctx.drawImage(rot_image, x, y, 18, 18);
+            var x2 = 375 * Math.cos(alpha - theta);
+            var y2 = 375 * Math.sin(alpha - theta);
+            ctx.font = "16px Source Sans Pro";
+            ctx.fillText(i+1,x2,y2);
+            theta += Math.PI/50;
         }
     }
     base_image.src = "chair.svg";
@@ -23,7 +27,7 @@ function setupCanvas() {
 }
 rotateAndCache = function(image, angle) {
     var offscreenCanvas = document.createElement('canvas');
-    var offscreenCtx = offscreenCanvas.getContext('2d');
+    var offscreenCtx = offscreenCanvas.getContext('2d');    
     var size = Math.max(image.width, image.height);
     offscreenCanvas.width = size;
     offscreenCanvas.height = size;
