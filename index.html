@@ -1,40 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Josephus">
-    <meta name="author" content="Yash Ketkar">
-
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="Josephus" name="description">
+    <meta content="Yash Ketkar" name="author">
     <title>Test</title>
-
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" rel="stylesheet">
-    <link rel="stylesheet" href="jo.css">
-
-    <!--[if lt IE 9]>
+    <link href="jo.css" rel="stylesheet"><!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
 </head>
-
 <body>
-    <div class="row">
-        <div class="column left" id="left" >
+    <div class="row-content">
+        <div class="column-content left" id="left">
             <h1 id="headline">The 100 Chair Problem</h1>
             <p id="body-copy">This simulation represents a modified version of the Josephus problem. Given the inputs of a number of chairs and a timer value, it visualizes the elimination of the participants using the timer as the delay between eliminations. Additionally you may step through the simulation manually by using the remove chair button.</p>
+            <div class="input-group">
+                <input aria-describedby="basic-addon2" class="form-control" placeholder="100" type="text">
+                <span class="input-group-addon" id="basic-addon2">Chairs</span>
+            </div><br>
+            <div class="input-group">
+
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button">
+                        Run Simulation
+                    </button>
+                </span>
+
+                <input class="form-control" placeholder="Search for..." type="text">
+
+                <span class="input-group-addon" id="basic-addon2">Ms</span>
+            </div><br>
+            <button class="btn btn-single" type="button">Single Step</button> <button class="btn btn-link" type="button">Reset</button>
         </div>
-        <div class="column right" id="right" >
-            <canvas id="myCanvas" >
+        <div class="column-content right" id="right">
+            <canvas id="myCanvas">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
         </div>
     </div>
-
-    <script src="jo.js"></script>
+    <script src="jo.js">
+    </script> 
     <script>
         window.onload = setupCanvas();
     </script>
-
 </body>
-
 </html>
