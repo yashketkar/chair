@@ -20,13 +20,32 @@ function preload() {
 }
 
 function create() {
-  game.set
+  //  Make our game world 2000x2000 pixels in size (the default is to match the game size)
+  game.world.setBounds(0, 0, 1000, 1000);
+
+  game.camera.x += 400;
+  game.camera.y += 400;
+
   game.stage.backgroundColor = "#FFFFFF";
+
   var test = game.add.sprite(0, 0, 'chair');
   //  Set the scale of the sprite to the random value
+  var theta=0;
+  for (i = 0; i < 0; i++) {
+           var x = 350 * Math.cos(alpha - theta);
+           var y = 350 * Math.sin(alpha - theta);
+           rot_image = rotateAndCache(base_image, theta)
+           ctx.drawImage(rot_image, x, y, 18, 18);
+           var x2 = 375 * Math.cos(alpha - theta);
+           var y2 = 375 * Math.sin(alpha - theta);
+           ctx.font = "16px Source Sans Pro";
+           ctx.fillText(i+1,x2,y2);
+           theta += Math.PI/50;
+       }
+
   test.scale.setTo(0.1, 0.1);
   console.log(test);
-    console.log(test.scale);
+  console.log(test.scale);
 }
 
 function createText() {
