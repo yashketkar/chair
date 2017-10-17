@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="Josephus" name="description">
+    <meta content="The 100 Chair Problem" name="description">
     <meta content="Yash Ketkar" name="author">
-    <title>Test</title>
+    <title>The 100 Chair Problem</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" rel="stylesheet">
     <link href="jo.css" rel="stylesheet"><!--[if lt IE 9]>
@@ -18,22 +18,14 @@
             <h1 id="headline">The 100 Chair Problem</h1>
             <p id="body-copy">This simulation represents a modified version of the Josephus problem. Given the inputs of a number of chairs and a timer value, it visualizes the elimination of the participants using the timer as the delay between eliminations. Additionally you may step through the simulation manually by using the remove chair button.</p>
             <div class="input-group">
-                <input aria-describedby="basic-addon2" class="form-control" placeholder="100" type="text">
-                <span class="input-group-addon" id="basic-addon2">Chairs</span>
+                <input aria-describedby="basic-addon2" class="form-control" placeholder="100" type="text"> <span class="input-group-addon" id="basic-addon2">Chairs</span>
             </div><br>
             <div class="input-group">
-
-                <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button">
-                        Run Simulation
-                    </button>
-                </span>
-
-                <input class="form-control" placeholder="Search for..." type="text">
-
-                <span class="input-group-addon" id="basic-addon2">Ms</span>
+                <span class="input-group-btn"><button class="btn" type="button">Run Simulation</button></span> <input class="form-control" placeholder="200" type="text"> <span class="input-group-addon" id="basic-addon2">Ms</span>
             </div><br>
-            <button class="btn btn-single" type="button">Single Step</button> <button class="btn btn-link" type="button">Reset</button>
+            <div class="input-group">
+                <button class="btn btn-single" type="button">Single Step</button> <button class="btn btn-link" type="button">Reset</button>
+            </div>
         </div>
         <div class="column-content right" id="right">
             <canvas id="myCanvas">

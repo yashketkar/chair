@@ -1,81 +1,94 @@
-h1 {
-    font-family: 'Source Sans Pro', serif;
-    font-size: 48px;
-}
-
-
 * {
     box-sizing: border-box;
 }
-
 body {
     margin: 0;
 }
 
 /* Create two unequal columns that floats next to each other */
+
 .column-content {
     float: left;
     padding: 10px;
-    height: 100vh; /* Should be removed. Only for demonstration */
+    height: 100vh;
 }
-
 .left {
-  width: 30%;
-  background-color: #F6F6F6;  
+    width: 30%;
+    /*Left Side Background*/
+    background-color: #F6F6F6;
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 10%;
 }
-
 .right {
-  width: 70%;
+    width: 70%;
 }
 
 /* Clear floats after the columns */
+
 .row-content:after {
     content: "";
     display: table;
     clear: both;
 }
-
 #myCanvas {
     border: 1px solid #d3d3d3;
 }
-#headline{
-	font-weight: 600;
-	font-size: 24px;
-	color: #62687C;
-}
-#body-copy{
-	font-weight: 300;
-	font-size: 16px;
-	line-height: 1.5;
-	color: #62687C;
+
+/*Headline*/
+
+#headline {
+    font-family: 'Source Sans Pro', serif;
+    font-size: 48px;
+    font-weight: 600;
+    font-size: 24px;
+    color: #62687C;
 }
 
-input{
+/*Body Copy*/
+
+#body-copy {
+    font-family: 'Source Sans Pro', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #62687C;
+}
+
+/*Form Field Copy*/
+#left > div:nth-child(3) > input,
+#left > div:nth-child(5) > input {
+    font-family: 'Source Sans Pro', serif;
     font-weight: 300;
     font-size: 16px;
     color: #4A4A4A;
+    border: 1px solid #C4CDD5;
 }
 
-#basic-addon2{
+/*Form Label Copy*/
+
+#basic-addon2 {
+    font-family: 'Source Sans Pro', serif;
     font-weight: 300;
     font-size: 16px;
     color: #9a9a9a;
+    background-image: linear-gradient(to bottom, #FFFFFF, #F9FAFB);
+    border: 1px solid #C4CDD5;
 }
-
-#left > div:nth-child(5) > span.input-group-btn > button {
-    color: #FFFFFF;
+#left>div:nth-child(5)>span.input-group-btn>button {
+    font-family: 'Source Sans Pro', serif;
+    background-color: #FFFFFF;
+    color: #4A4A4A;
+    border: 1px solid #C4CDD5;
 }
-
-#left > button.btn.btn-primary{
+#left>div:nth-child(7)>button.btn.btn-link {
+    font-family: 'Source Sans Pro', serif;
+    color: #24C4F8;
+}
+.btn-single {
+    font-family: 'Source Sans Pro', serif;
     font-weight: 300;
     font-size: 16px;
-    color: #FFFFFF;    
-}
-
-.btn-single {
     color: #FFFFFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background-color: #24C4F8;
@@ -86,17 +99,12 @@ input{
     background-image: -o-linear-gradient(top, #34C9F9, #24C4F8);
     background-image: linear-gradient(to bottom, #34C9F9, #24C4F8);
     background-repeat: repeat-x;
-    border-color: #24C4F8;
+    border-color: #12B9EF;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#34C9F9', endColorstr='#24C4F8', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#34C9F9', endColorstr='#24C4F8', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
 }
-.btn-single:hover,
-.btn-single:focus,
-.btn-single:active,
-.btn-single.active,
-.btn-single.disabled,
-.btn-single[disabled] {
+.btn-single:hover, .btn-single:focus, .btn-single:active, .btn-single.active, .btn-single.disabled, .btn-single[disabled] {
     color: #FFFFFF;
     background-color: #24C4F8;
     *background-color: #003bb3;
