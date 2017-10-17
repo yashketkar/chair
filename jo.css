@@ -1,8 +1,78 @@
 h1 {
-  font-family: 'Source Sans Pro', serif;
-  font-size: 48px;
+    font-family: 'Source Sans Pro', serif;
+    font-size: 48px;
 }
 
-#left {
-  height: 100vh;
+
+* {
+    box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    height: 100vh; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 30%;
+  background-color: #F6F6F6;
+}
+
+.right {
+  width: 70%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/*#left {
+    height: 100vh;
+    float: left;
+    width: 40%;
+     margin:0 auto;
+    display: inline-block;
+}
+#right{
+	float: right;
+	width: auto;
+	display: inline-block;
+}*/
+#myCanvas {
+    border: 1px solid #d3d3d3;
+}
+#headline{
+	font-weight: 600;
+	font-size: 24px;
+	color: #62687C;
+}
+#body-copy{
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 1.5;
+	color: #62687C;
+}
+
+
+
+/*Form Field Copy
+Weight: Regular (300)
+Size: 16px
+Color: #4A4A4A
+Form Label Copy
+Weight: Regular (300)
+Size: 16px
+Color: #9a9a9a
+Remove Chair Button Copy
+Weight: Regular (300)
+Size: 16px
+Color: #FFFFFF*/

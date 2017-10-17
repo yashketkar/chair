@@ -8,7 +8,7 @@ function setupCanvas() {
     base_image.onload = function()
     {
       console.log(base_image);
-      ctx.translate(450, 450);
+      ctx.translate(685, 472);
       var theta=0;
       var alpha = Math.PI/2;
       for (i = 0; i < 50; i++) {
@@ -20,7 +20,8 @@ function setupCanvas() {
       }
     }
     base_image.src = "chair.svg";
-};
+    fitToContainer(canvas);
+}
 
 rotateAndCache = function(image,angle) {
   var offscreenCanvas = document.createElement('canvas');
@@ -35,4 +36,11 @@ rotateAndCache = function(image,angle) {
   offscreenCtx.drawImage(image, -(image.width/2), -(image.height/2));
 
   return offscreenCanvas;
+}
+
+function fitToContainer(canvas){
+  canvas.style.width='100%';
+  canvas.style.height='100%';
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
 }
