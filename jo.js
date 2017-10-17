@@ -20,6 +20,7 @@ function preload() {
 }
 
 function create() {
+  game.set
   game.stage.backgroundColor = "#FFFFFF";
   var test = game.add.sprite(0, 0, 'chair');
   //  Set the scale of the sprite to the random value
