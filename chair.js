@@ -1,4 +1,5 @@
 var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', { preload: preload, create: create});
+var N = 100;
 
 function preload() {
     game.load.image('chair', 'chair.png');
@@ -6,8 +7,11 @@ function preload() {
 
 function create() {
   game.stage.backgroundColor = "#FFFFFF";
+  drawChairs(100);
+}
+
+function drawChairs(N) {
   var r = 350;
-  var N = 100;
   var xplus = 400;
   var yplus = 400;
   var s=[];
@@ -34,4 +38,15 @@ function create() {
     t[i].y=yplus+y2;
     theta-=360/N;
   }
+}
+
+function runSimulation() {
+  game.time.events.repeat(200, 100, removeChair, this);
+}
+
+function removeChair() {
+    console.log(N);
+    game.world.removeAll();
+    N-=1;
+    drawChairs(N);
 }
