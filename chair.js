@@ -1,5 +1,6 @@
 var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', { preload: preload, create: create});
 var N = 100;
+var previousEvent;
 
 function preload() {
     game.load.image('chair', 'chair.png');
@@ -41,7 +42,9 @@ function drawChairs(N) {
 }
 
 function runSimulation() {
-  game.time.events.repeat(200, 100, removeChair, this);
+    game.time.events.remove(previousEvent);
+    N = 100;
+    previousEvent = game.time.events.repeat(200, 100, removeChair, this);
 }
 
 function removeChair() {
