@@ -1,4 +1,3 @@
-
 var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', { preload: preload, create: create});
 
 function preload() {
@@ -7,15 +6,10 @@ function preload() {
 
 function create() {
   game.stage.backgroundColor = "#FFFFFF";
-  var xplus = 400;
-  var yplus = 400;
-  // var test1 = game.add.sprite(xplus+0, yplus+0, 'chair');
-  // test1.scale.setTo(0.05, 0.05);
-  // test1.x=400-15;
-  // test1.y=400-15;
   var r = 350;
   var N = 100;
-
+  var xplus = 400;
+  var yplus = 400;
   var s=[];
   var t=[];
   var l=2*Math.PI*r/N;
