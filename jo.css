@@ -31,7 +31,8 @@ body {
     display: table;
     clear: both;
 }
-#myCanvas {
+
+#phaser-div {
     border: 1px solid #d3d3d3;
 }
 
