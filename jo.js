@@ -13,18 +13,20 @@ function create() {
   // test1.scale.setTo(0.05, 0.05);
   // test1.x=400-15;
   // test1.y=400-15;
+  var r = 350;
+  var N = 100;
+
   var s=[];
   var t=[];
-  var r = 350;
-  var c=2*Math.PI*r;
-  var l=c/100;
-  l=Math.floor(l);
+  var l=2*Math.PI*r/N;
+  l=Math.floor(l)-1;
   var style = { font: 'Source Sans Pro', fontWeight: 300, fontSize: '16px', fill: "#000000" };
   var theta=0;
-  for (i = 0; i < 100; i++) {
+  for (i = 0; i < N; i++) {
     var x = r*Math.cos(Math.PI/2+Math.PI*theta/180);
     var y = r*Math.sin(Math.PI/2+Math.PI*theta/180);
     s[i]=game.add.sprite(xplus+x, yplus+y, 'chair');
+    // s[i].scale.setTo(l/600, l/600);
     s[i].scale.setTo(1/30, 1/30);
     s[i].anchor.set(0.5,0.5);
     s[i].x=xplus+x;
@@ -36,6 +38,6 @@ function create() {
     t[i].anchor.set(0.5,0.5);
     t[i].x=xplus+x2;
     t[i].y=yplus+y2;
-    theta-=3.6;
+    theta-=360/N;
   }
 }
