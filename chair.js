@@ -27,7 +27,7 @@ function drawChairs(N) {
   l=Math.floor(l)-1;
   var style = { font: 'Source Sans Pro', fontWeight: 300, fontSize: '16px', fill: "#000000" };
   var theta=0;
-  for (i = 0; i < N; i++) {
+  for (i = 0; i < N-1; i++) {
     var x = r*Math.cos(Math.PI/2+Math.PI*theta/180);
     var y = r*Math.sin(Math.PI/2+Math.PI*theta/180);
     s[i]=game.add.sprite(xplus+x, yplus+y, 'chair');
@@ -78,8 +78,9 @@ function removeChair() {
 
 function updateN(newN) {
     N=newN
-    game.time.events.remove(previousEvent);
+    game.time.events.removeAll();
     game.world.removeAll();
+    running=false;
     drawChairs(N);
 }
 
