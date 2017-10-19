@@ -1,5 +1,5 @@
 function logic(){
-  N=5;
+  N=100;
   chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
   console.log(chairs);
   i=0;
@@ -11,9 +11,6 @@ function logic(){
     i=i%chairs.length;
     c+=1;
     console.log(chairs);
-    if(c==5){
-      // break;
-    }
   }
 }
 logic();

@@ -4,6 +4,8 @@ var numberOfChairs = document.getElementById("numberOfChairs");
 var intervalAmount = document.getElementById("intervalAmount");
 var N = 100;
 var interval = 200;
+var index;
+var count;
 var previousEvent;
 var chairs = [];
 var running = false;
@@ -39,7 +41,7 @@ function drawChairs(N) {
     s[i].angle+=theta;
     var x2 = (r+20)*Math.cos(Math.PI/2+Math.PI*theta/180);
     var y2 = (r+20)*Math.sin(Math.PI/2+Math.PI*theta/180);
-    t[i] = game.add.text(xplus+x2, yplus+y2, i+1, style);
+    t[i] = game.add.text(xplus+x2, yplus+y2, chairs[i], style);
     t[i].anchor.set(0.5,0.5);
     t[i].x=xplus+x2;
     t[i].y=yplus+y2;
@@ -59,6 +61,8 @@ function runSimulation() {
     } else {
     N=numberOfChairs.value;
     chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
+    index=0;
+    count=1;
     runButtonText.data = "Pause Simulation";
     game.time.events.remove(previousEvent);
     previousEvent = game.time.events.repeat(interval, N, removeChair, this);
@@ -69,6 +73,10 @@ function runSimulation() {
 function removeChair() {
     game.world.removeAll();
     N-=1;
+    chairs.splice(index, 1);
+    index+=count;
+    index=index%chairs.length;
+    count+=1;
     drawChairs(N);
     if(N==0){
         running = false;
@@ -88,7 +96,7 @@ function updateInterval(newInterval) {
     interval = newInterval;
     if(running){
         game.time.events.remove(previousEvent);
-        previousEvent = game.time.events.repeat(interval, N, removeChair, this);        
+        previousEvent = game.time.events.repeat(interval, N, removeChair, this);
     }
 }
 
@@ -98,6 +106,8 @@ function resetState(){
     runButtonText.data = "Run Simulation";
     numberOfChairs.value = 100;
     intervalAmount.value = 200;
+    index = 0;
+    count = 1;
     updateN(100);
     updateInterval(200);
 }
