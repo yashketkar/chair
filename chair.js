@@ -90,6 +90,7 @@ function updateN(newN) {
     game.time.events.removeAll();
     game.world.removeAll();
     running=false;
+    runButtonText.data = "Run Simulation";
     drawChairs(N);
 }
 
@@ -102,13 +103,13 @@ function updateInterval(newInterval) {
 }
 
 function resetState(){
-    game.time.events.removeAll();
-    running=false;
-    runButtonText.data = "Run Simulation";
     numberOfChairs.value = 100;
+    updateN(100);
     intervalAmount.value = 200;
+    updateInterval(200);
+    // game.time.events.removeAll();
+    // running=false;
+    // runButtonText.data = "Run Simulation";
     index = 0;
     count = 1;
-    updateN(100);
-    updateInterval(200);
 }
