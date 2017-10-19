@@ -22,10 +22,10 @@
                 <input aria-describedby="basic-addon2" id="numberOfChairs" class="form-control" placeholder="100" value="100" type="text" oninput="updateN(this.value)"> <span class="input-group-addon" id="basic-addon2">Chairs</span>
             </div><br>
             <div class="input-group">
-                <span class="input-group-btn"><button id="runButton" class="btn" type="button" onclick="runSimulation()">Run Simulation</button></span> <input class="form-control" placeholder="200" value="200" type="text" oninput="updateInterval(this.value)"> <span class="input-group-addon" id="basic-addon2">Ms</span>
+                <span class="input-group-btn"><button id="runButton" class="btn" type="button" onclick="runSimulation()">Run Simulation</button></span> <input id="intervalAmount" class="form-control" placeholder="200" value="200" type="text" oninput="updateInterval(this.value)"> <span class="input-group-addon" id="basic-addon2">Ms</span>
             </div><br>
             <div class="input-group">
-                <button class="btn btn-single" type="button" onclick="removeChair()">Single Step</button> <button class="btn btn-link" type="button">Reset</button>
+                <button class="btn btn-single" type="button" onclick="removeChair()">Single Step</button> <button class="btn btn-link" type="button" onclick="resetState()">Reset</button>
             </div>
         </div>
         <div class="column-content right" id="right">

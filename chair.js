@@ -1,9 +1,12 @@
 var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', { preload: preload, create: create});
 var runButtonText = document.getElementById("runButton").firstChild;
 var numberOfChairs = document.getElementById("numberOfChairs");
+var intervalAmount = document.getElementById("intervalAmount");
 var N = 100;
 var interval = 200;
 var previousEvent;
+var chairs = [];
+var running = false;
 
 function preload() {
     game.load.image('chair', 'chair.png');
@@ -45,17 +48,22 @@ function drawChairs(N) {
 }
 
 function runSimulation() {
-    N=numberOfChairs.value;
-    if (runButtonText.data=="Run Simulation"){
-        game.time.events.resume();
+    console.log(chairs);
+    if (runButtonText.data=="Run Simulation" && running == true){
         runButtonText.data = "Pause Simulation";
+        game.time.events.resume();
     }
-    else {
+    else if (runButtonText.data == "Pause Simulation" &&running==true) {
         runButtonText.data = "Run Simulation";
         game.time.events.pause();
-    }
+    } else {
+    N=numberOfChairs.value;
+    chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
+    runButtonText.data = "Pause Simulation";
     game.time.events.remove(previousEvent);
     previousEvent = game.time.events.repeat(interval, N, removeChair, this);
+    running = true;
+    }
 }
 
 function removeChair() {
@@ -63,6 +71,7 @@ function removeChair() {
     N-=1;
     drawChairs(N);
     if(N==0){
+        running = false;
         runButtonText.data = "Run Simulation";
     }
 }
@@ -76,6 +85,18 @@ function updateN(newN) {
 
 function updateInterval(newInterval) {
     interval = newInterval;
-    game.time.events.remove(previousEvent);
-    previousEvent = game.time.events.repeat(interval, N, removeChair, this);
+    if(running){
+        game.time.events.remove(previousEvent);
+        previousEvent = game.time.events.repeat(interval, N, removeChair, this);        
+    }
+}
+
+function resetState(){
+    game.time.events.removeAll();
+    running=false;
+    runButtonText.data = "Run Simulation";
+    numberOfChairs.value = 100;
+    intervalAmount.value = 200;
+    updateN(100);
+    updateInterval(200);
 }
