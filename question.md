@@ -1,3 +1,7 @@
+# Question
+should the value of chairs textbox update while the simulation runs to reflect the number of chairs?
+
+
 # THE PROBLEM:
 Imagine there are people sitting in N chairs arranged in a circle. Each chair is evenly spaced apart from its neighbors. Additionally, each chair is given an number starting with 1 and increasing by 1 to N, such that the chair to the right of a person sitting in chair 1 is numbered 2.
 

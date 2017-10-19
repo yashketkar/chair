@@ -1,5 +1,8 @@
 var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', { preload: preload, create: create});
+var runButtonText = document.getElementById("runButton").firstChild;
+var numberOfChairs = document.getElementById("numberOfChairs");
 var N = 100;
+var interval = 200;
 var previousEvent;
 
 function preload() {
@@ -42,14 +45,37 @@ function drawChairs(N) {
 }
 
 function runSimulation() {
+    N=numberOfChairs.value;
+    if (runButtonText.data=="Run Simulation"){
+        game.time.events.resume();
+        runButtonText.data = "Pause Simulation";
+    }
+    else {
+        runButtonText.data = "Run Simulation";
+        game.time.events.pause();
+    }
     game.time.events.remove(previousEvent);
-    N = 100;
-    previousEvent = game.time.events.repeat(200, 100, removeChair, this);
+    previousEvent = game.time.events.repeat(interval, N, removeChair, this);
 }
 
 function removeChair() {
-    console.log(N);
     game.world.removeAll();
     N-=1;
     drawChairs(N);
+    if(N==0){
+        runButtonText.data = "Run Simulation";
+    }
+}
+
+function updateN(newN) {
+    N=newN
+    game.time.events.remove(previousEvent);
+    game.world.removeAll();
+    drawChairs(N);
+}
+
+function updateInterval(newInterval) {
+    interval = newInterval;
+    game.time.events.remove(previousEvent);
+    previousEvent = game.time.events.repeat(interval, N, removeChair, this);
 }

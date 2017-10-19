@@ -19,13 +19,13 @@
             <h1 id="headline">The 100 Chair Problem</h1>
             <p id="body-copy">This simulation represents a modified version of the Josephus problem. Given the inputs of a number of chairs and a timer value, it visualizes the elimination of the participants using the timer as the delay between eliminations. Additionally you may step through the simulation manually by using the remove chair button.</p>
             <div class="input-group">
-                <input aria-describedby="basic-addon2" class="form-control" placeholder="100" type="text"> <span class="input-group-addon" id="basic-addon2">Chairs</span>
+                <input aria-describedby="basic-addon2" id="numberOfChairs" class="form-control" placeholder="100" value="100" type="text" oninput="updateN(this.value)"> <span class="input-group-addon" id="basic-addon2">Chairs</span>
             </div><br>
             <div class="input-group">
-                <span class="input-group-btn"><button class="btn" type="button" onclick="runSimulation()">Run Simulation</button></span> <input class="form-control" placeholder="200" type="text"> <span class="input-group-addon" id="basic-addon2">Ms</span>
+                <span class="input-group-btn"><button id="runButton" class="btn" type="button" onclick="runSimulation()">Run Simulation</button></span> <input class="form-control" placeholder="200" value="200" type="text" oninput="updateInterval(this.value)"> <span class="input-group-addon" id="basic-addon2">Ms</span>
             </div><br>
             <div class="input-group">
-                <button class="btn btn-single" type="button">Single Step</button> <button class="btn btn-link" type="button">Reset</button>
+                <button class="btn btn-single" type="button" onclick="removeChair()">Single Step</button> <button class="btn btn-link" type="button">Reset</button>
             </div>
         </div>
         <div class="column-content right" id="right">
