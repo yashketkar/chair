@@ -11,7 +11,8 @@ var chairs = [];
 var running = false;
 
 function preload() {
-    game.load.image('chair', 'chair.png');
+    // game.load.image('chair', 'chair.png');
+    game.load.image('chair', 'https://media1.popsugar-assets.com/static/imgs/interview/chair.png');
 }
 
 function create() {
