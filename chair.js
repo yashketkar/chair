@@ -7,7 +7,7 @@ var interval = 200;
 var index;
 var count;
 var previousEvent;
-var chairs = [];
+var chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
 var running = false;
 
 function preload() {
@@ -30,7 +30,7 @@ function drawChairs(N) {
   l=Math.floor(l)-1;
   var style = { font: 'Source Sans Pro', fontWeight: 300, fontSize: '16px', fill: "#000000" };
   var theta=0;
-  for (i = 0; i < N-1; i++) {
+  for (i = 0; i < N; i++) {
     var x = r*Math.cos(Math.PI/2+Math.PI*theta/180);
     var y = r*Math.sin(Math.PI/2+Math.PI*theta/180);
     s[i]=game.add.sprite(xplus+x, yplus+y, 'chair');
@@ -51,7 +51,6 @@ function drawChairs(N) {
 }
 
 function runSimulation() {
-    console.log(chairs);
     if (runButtonText.data=="Run Simulation" && running == true){
         runButtonText.data = "Pause Simulation";
         game.time.events.resume();
@@ -60,13 +59,13 @@ function runSimulation() {
         runButtonText.data = "Run Simulation";
         game.time.events.pause();
     } else {
-    N=numberOfChairs.value;
-    chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
+    // N=(numberOfChairs.value);
+    console.log(N);
     index=0;
     count=1;
     runButtonText.data = "Pause Simulation";
     game.time.events.remove(previousEvent);
-    previousEvent = game.time.events.repeat(interval, N, removeChair, this);
+    previousEvent = game.time.events.repeat(interval, N-1, removeChair, this);
     running = true;
     }
 }
@@ -75,18 +74,20 @@ function removeChair() {
     game.world.removeAll();
     N-=1;
     chairs.splice(index, 1);
+    console.log(chairs);
     index+=count;
     index=index%chairs.length;
     count+=1;
     drawChairs(N);
-    if(N==0){
+    if(N==1){
         running = false;
         runButtonText.data = "Run Simulation";
     }
 }
 
 function updateN(newN) {
-    N=newN
+    N=parseInt(newN);
+    chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
     game.time.events.removeAll();
     game.world.removeAll();
     running=false;
