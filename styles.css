@@ -4,9 +4,7 @@
 body {
     margin: 0;
 }
-
 /* Create two unequal columns that floats next to each other */
-
 .column-content {
     float: left;
     padding: 10px;
@@ -23,21 +21,16 @@ body {
 .right {
     width: 70%;
 }
-
 /* Clear floats after the columns */
-
 .row-content:after {
     content: "";
     display: table;
     clear: both;
 }
-
-#phaser-div > canvas {
+#phaser-div>canvas {
     border: 1px solid #d3d3d3;
 }
-
 /*Headline*/
-
 #headline {
     font-family: 'Source Sans Pro', serif;
     font-size: 48px;
@@ -45,9 +38,7 @@ body {
     font-size: 24px;
     color: #62687C;
 }
-
 /*Body Copy*/
-
 #body-copy {
     font-family: 'Source Sans Pro', serif;
     font-weight: 300;
@@ -55,9 +46,7 @@ body {
     line-height: 1.5;
     color: #62687C;
 }
-
 /*Form Field Copy*/
-
 #left>div:nth-child(3)>input, #left>div:nth-child(5)>input {
     font-family: 'Source Sans Pro', serif;
     font-weight: 300;
@@ -65,9 +54,7 @@ body {
     color: #4A4A4A;
     border: 1px solid #C4CDD5;
 }
-
 /*Form Label Copy*/
-
 #basic-addon2 {
     font-family: 'Source Sans Pro', serif;
     font-weight: 300;
@@ -75,25 +62,19 @@ body {
     color: #9a9a9a;
     background-image: linear-gradient(to bottom, #FFFFFF, #F9FAFB);
 }
-
 /*Run Simulation button*/
-
 #left>div:nth-child(5)>span.input-group-btn>button {
     font-family: 'Source Sans Pro', serif;
     background-color: #FFFFFF;
     color: #4A4A4A;
     border: 1px solid #C4CDD5;
 }
-
 /*Reset button*/
-
 #left>div:nth-child(7)>button.btn.btn-link {
     font-family: 'Source Sans Pro', serif;
     color: #24C4F8;
 }
-
 /*Remove Chair Button*/
-
 .btn-single {
     font-family: 'Source Sans Pro', serif;
     font-weight: 300;
