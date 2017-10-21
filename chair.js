@@ -1,24 +1,24 @@
-var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', {
+var phaserDiv = document.getElementById("phaser-div");
+var game = new Phaser.Game(phaserDiv.clientWidth, phaserDiv.clientHeight, Phaser.CANVAS, 'phaser-div', {
     preload: preload,
     create: create
 });
-var phaserDiv = document.getElementById("phaser-div");
+window.addEventListener("resize", resizeGame);
 var runButtonText = document.getElementById("runButton").firstChild;
 var numberOfChairs = document.getElementById("numberOfChairs");
 var intervalAmount = document.getElementById("intervalAmount");
-var defaultN=100;
-var defaultInterval=200;
-var defaultIndex=0;
-var defaultCount=1;
+var defaultN = 100;
+var defaultInterval = 200;
+var defaultIndex = 0;
+var defaultCount = 1;
 var N = defaultN;
 var interval = defaultInterval;
+var running = false;
 var index;
 var count;
 var previousEvent;
 var chairs;
 updateChairs(N);
-var running = false;
-window.addEventListener("resize", resizeGame);
 
 function preload() {
     game.load.image('chair', 'https://media1.popsugar-assets.com/static/imgs/interview/chair.png');
@@ -30,32 +30,43 @@ function create() {
 }
 
 function drawChairs(N) {
-    var xplus = game.width/2;
-    var yplus = game.height/2;
-    var r = Math.min(xplus,yplus)-60;
+    var xplus = game.width / 2;
+    var yplus = game.height / 2;
+    var r = Math.min(xplus, yplus) - 60;
+    var textGap = 20;
+    console.log(r);
     var s = [];
     var t = [];
     var l = 2 * Math.PI * r / N;
     l = Math.floor(l) - 1;
     var style = {
-        font: 'Source Sans Pro',
+        font: "Source Sans Pro",
         fontWeight: 300,
-        fontSize: '16px',
+        fontSize: "16px",
         fill: "#000000"
     };
     var theta = 0;
     for (i = 0; i < N; i++) {
         var x = r * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y = r * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
-        s[i] = game.add.sprite(xplus + x, yplus + y, 'chair');
-        // s[i].scale.setTo(l/600, l/600);
-        s[i].scale.setTo(1 / 30, 1 / 30);
+        s[i] = game.add.sprite(xplus + x, yplus + y, "chair");
+        if (r >= 220) {
+            s[i].scale.setTo(1 / 30, 1 / 30);
+        } else if (r > 120) {
+            s[i].scale.setTo(1 / 60, 1 / 60);
+            style["fontSize"] = "8px";
+            textGap = 10;
+        } else {
+            s[i].scale.setTo(1 / 90, 1 / 90);
+            style["fontSize"] = "6px";
+            textGap = 6.67;
+        }
         s[i].anchor.set(0.5, 0.5);
         s[i].x = xplus + x;
         s[i].y = yplus + y;
         s[i].angle += theta;
-        var x2 = (r + 20) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
-        var y2 = (r + 20) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
+        var x2 = (r + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
+        var y2 = (r + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
         t[i] = game.add.text(xplus + x2, yplus + y2, chairs[i], style);
         t[i].anchor.set(0.5, 0.5);
         t[i].x = xplus + x2;
@@ -137,8 +148,8 @@ function resizeGame() {
     drawChairs(N);
 }
 
-function updateChairs(size){
+function updateChairs(size) {
     chairs = Array.apply(null, Array(size)).map(function(_, i) {
-       return i + 1;
+        return i + 1;
     });
 }
