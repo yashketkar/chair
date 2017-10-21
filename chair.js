@@ -11,7 +11,6 @@ var chairs = Array.apply(null, Array(N)).map(function (_, i) {return i+1;});
 var running = false;
 
 function preload() {
-    // game.load.image('chair', 'chair.png');
     game.load.image('chair', 'https://media1.popsugar-assets.com/static/imgs/interview/chair.png');
 }
 
@@ -59,13 +58,12 @@ function runSimulation() {
         runButtonText.data = "Run Simulation";
         game.time.events.pause();
     } else {
-    // N=(numberOfChairs.value);
-    console.log(N);
+    updateN(numberOfChairs.value);
     index=0;
     count=1;
     runButtonText.data = "Pause Simulation";
     game.time.events.remove(previousEvent);
-    previousEvent = game.time.events.repeat(interval, N-1, removeChair, this);
+    previousEvent = game.time.events.repeat(interval, chairs.length-1, removeChair, this);
     running = true;
     }
 }
@@ -74,7 +72,6 @@ function removeChair() {
     game.world.removeAll();
     N-=1;
     chairs.splice(index, 1);
-    console.log(chairs);
     index+=count;
     index=index%chairs.length;
     count+=1;
@@ -99,7 +96,7 @@ function updateInterval(newInterval) {
     interval = newInterval;
     if(running){
         game.time.events.remove(previousEvent);
-        previousEvent = game.time.events.repeat(interval, N, removeChair, this);
+        previousEvent = game.time.events.repeat(interval, chairs.length-1, removeChair, this);
     }
 }
 
@@ -108,9 +105,6 @@ function resetState(){
     updateN(100);
     intervalAmount.value = 200;
     updateInterval(200);
-    // game.time.events.removeAll();
-    // running=false;
-    // runButtonText.data = "Run Simulation";
     index = 0;
     count = 1;
 }
