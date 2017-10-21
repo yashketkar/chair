@@ -1,17 +1,25 @@
 * {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
+
+html {
+    height: 100%;
+}
+
 body {
-    margin: 0;
+    /*margin: 0;*/
+    height: 100%;
 }
+
 /* Create two unequal columns that floats next to each other */
 .column-content {
     float: left;
-    padding: 10px;
-    height: 100vh;
+    /*padding: 10px;*/
+    height: 100%;
 }
 .left {
     width: 30%;
+    height: 100vh;
     /*Left Side Background*/
     background-color: #F6F6F6;
     padding-left: 5%;
@@ -20,15 +28,21 @@ body {
 }
 .right {
     width: 70%;
+    height: 100vh;
 }
 /* Clear floats after the columns */
 .row-content:after {
-    content: "";
+/*    content: "";
     display: table;
-    clear: both;
+    clear: both;*/
+}
+#phaser-div {
+    height: 100vh;
 }
 #phaser-div>canvas {
     border: 1px solid #d3d3d3;
+    margin: 0 auto;
+    height: 100vh;
 }
 /*Headline*/
 #headline {

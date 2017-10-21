@@ -2,18 +2,23 @@ var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-div', {
     preload: preload,
     create: create
 });
+var phaserDiv = document.getElementById("phaser-div");
 var runButtonText = document.getElementById("runButton").firstChild;
 var numberOfChairs = document.getElementById("numberOfChairs");
 var intervalAmount = document.getElementById("intervalAmount");
-var N = 100;
-var interval = 200;
+var defaultN=100;
+var defaultInterval=200;
+var defaultIndex=0;
+var defaultCount=1;
+var N = defaultN;
+var interval = defaultInterval;
 var index;
 var count;
 var previousEvent;
-var chairs = Array.apply(null, Array(N)).map(function(_, i) {
-    return i + 1;
-});
+var chairs;
+updateChairs(N);
 var running = false;
+window.addEventListener("resize", resizeGame);
 
 function preload() {
     game.load.image('chair', 'https://media1.popsugar-assets.com/static/imgs/interview/chair.png');
@@ -21,13 +26,13 @@ function preload() {
 
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    drawChairs(100);
+    drawChairs(N);
 }
 
 function drawChairs(N) {
-    var r = 350;
-    var xplus = 400;
-    var yplus = 400;
+    var xplus = game.width/2;
+    var yplus = game.height/2;
+    var r = Math.min(xplus,yplus)-60;
     var s = [];
     var t = [];
     var l = 2 * Math.PI * r / N;
@@ -68,8 +73,8 @@ function runSimulation() {
         game.time.events.pause();
     } else {
         updateN(numberOfChairs.value);
-        index = 0;
-        count = 1;
+        index = defaultIndex;
+        count = defaultCount;
         runButtonText.data = "Pause Simulation";
         game.time.events.remove(previousEvent);
         previousEvent = game.time.events.repeat(interval, chairs.length - 1, removeChair, this);
@@ -93,9 +98,7 @@ function removeChair() {
 
 function updateN(newN) {
     N = parseInt(newN);
-    chairs = Array.apply(null, Array(N)).map(function(_, i) {
-        return i + 1;
-    });
+    updateChairs(N);
     game.time.events.removeAll();
     game.world.removeAll();
     running = false;
@@ -112,10 +115,30 @@ function updateInterval(newInterval) {
 }
 
 function resetState() {
-    numberOfChairs.value = 100;
-    updateN(100);
-    intervalAmount.value = 200;
-    updateInterval(200);
-    index = 0;
-    count = 1;
+    numberOfChairs.value = defaultN;
+    updateN(defaultN);
+    intervalAmount.value = defaultInterval;
+    updateInterval(defaultInterval);
+    index = defaultIndex;
+    count = defaultCount;
+}
+
+function resizeGame() {
+    var height = phaserDiv.clientHeight;
+    var width = phaserDiv.clientWidth;
+    game.width = width;
+    game.height = height;
+    if (game.renderType === 1) {
+        game.renderer.resize(width, height);
+        Phaser.Canvas.setSmoothingEnabled(game.context, false);
+    }
+    game.camera.setSize(width, height);
+    game.world.removeAll();
+    drawChairs(N);
+}
+
+function updateChairs(size){
+    chairs = Array.apply(null, Array(size)).map(function(_, i) {
+       return i + 1;
+    });
 }
