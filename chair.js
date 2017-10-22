@@ -110,6 +110,7 @@ function runSimulation() {
         count = defaultCount;
         runButtonText.data = "Pause Simulation";
         game.time.events.remove(previousEvent);
+        animateRemoval();
         previousEvent = game.time.events.repeat(interval + 2000, chairs.length - 1, animateRemoval, this);
         running = true;
     }
@@ -182,6 +183,9 @@ function resizeGame() {
         Phaser.Canvas.setSmoothingEnabled(game.context, false);
     }
     game.camera.setSize(width, height);
+    if(!running){
+        game.world.removeAll();
+    }
     drawChairs(N);
 }
 
