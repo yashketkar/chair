@@ -48,7 +48,9 @@ function drawChairs(N) {
     for (i = 0; i < N; i++) {
         var x = r * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y = r * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
+        if(!running){
         s[i] = game.add.sprite(xplus + x, yplus + y, "chair");
+        }
         if (r >= 220) {
             s[i].scale.setTo(1 / 30, 1 / 30);
         } else if (r > 120) {
@@ -61,16 +63,37 @@ function drawChairs(N) {
             textGap = 6.67;
         }
         s[i].anchor.set(0.5, 0.5);
+        if(!running){
         s[i].x = xplus + x;
         s[i].y = yplus + y;
+        }
+        else{
+        s[i].angle = 0;
+        }
         s[i].angle += theta;
         var x2 = (r + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y2 = (r + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
+        if(!running){
         t[i] = game.add.text(xplus + x2, yplus + y2, chairs[i], style);
+        }
         t[i].anchor.set(0.5, 0.5);
         t[i].x = xplus + x2;
         t[i].y = yplus + y2;
         theta -= 360 / N;
+        if(running){
+        var newX = xplus + x;
+        var newY = yplus + y;
+        var newX2 = xplus + x2;
+        var newY2 = yplus + y2;
+        tweenProperties = { x: parseInt(newX), y: parseInt(newY) };
+        tweenProperties2 = { x: parseInt(newX2), y: parseInt(newY2) };
+        var tween1 = game.tweens.create(s[i]);
+        var tween2 = game.tweens.create(t[i]);
+        tween1.to(tweenProperties, 1000, Phaser.Easing.Linear.None, false);
+        tween2.to(tweenProperties2, 1000, Phaser.Easing.Linear.None, false);
+        tween1.start();
+        tween2.start();
+        }
     }
 }
 
@@ -111,18 +134,7 @@ function moveChairs(N) {
         t[i].x = xplus + x2;
         t[i].y = yplus + y2;
         theta -= 360 / N;
-        var newX = xplus + x;
-        var newY = yplus + y;
-        var newX2 = xplus + x2;
-        var newY2 = yplus + y2;
-        tweenProperties = { x: parseInt(newX), y: parseInt(newY) };
-        tweenProperties2 = { x: parseInt(newX2), y: parseInt(newY2) };
-        var tween1 = game.tweens.create(s[i]);
-        var tween2 = game.tweens.create(t[i]);
-        tween1.to(tweenProperties, 1000, Phaser.Easing.Linear.None, false);
-        tween2.to(tweenProperties2, 1000, Phaser.Easing.Linear.None, false);
-        tween1.start();
-        tween2.start();
+
     }
 }
 
@@ -146,7 +158,10 @@ function runSimulation() {
 }
 
 function removeChair() {
-    // game.world.removeAll();
+    console.log(N);
+    console.log(chairs.length);
+    
+    if(N>1){
     N -= 1;
     chairs.splice(index, 1);
 
@@ -159,7 +174,8 @@ function removeChair() {
     index += count;
     index = index % chairs.length;
     count += 1;
-    moveChairs(N);
+    drawChairs(N);
+    }
     if (N == 1) {
         running = false;
         runButtonText.data = "Run Simulation";
@@ -167,8 +183,10 @@ function removeChair() {
 }
 
 function animateRemoval() {
+    if(N>1){
     game.add.tween(s[index]).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
     game.add.tween(t[index]).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+    }
     game.time.events.add(Phaser.Timer.SECOND, removeChair, this);
 }
 
@@ -209,7 +227,7 @@ function resizeGame() {
         Phaser.Canvas.setSmoothingEnabled(game.context, false);
     }
     game.camera.setSize(width, height);
-    game.world.removeAll();
+    // game.world.removeAll();
     drawChairs(N);
 }
 
