@@ -147,6 +147,11 @@ function animateRemoval() {
 }
 
 function updateN(newN) {
+    if(newN==''){
+        numberOfChairs.value = defaultN;
+        updateN(defaultN);
+    }
+    else{
     N = parseInt(newN);
     updateChairs(N);
     game.time.events.removeAll();
@@ -154,6 +159,7 @@ function updateN(newN) {
     running = false;
     runButtonText.data = "Run Simulation";
     drawChairs(N);
+    }
 }
 
 function updateInterval(newInterval) {
