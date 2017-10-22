@@ -3,7 +3,7 @@ var game = new Phaser.Game(phaserDiv.clientWidth, phaserDiv.clientHeight, Phaser
     preload: preload,
     create: create
 });
-window.addEventListener("resize", resizeGame);
+window.addEventListener("resize", resizeCanvas);
 var runButtonText = document.getElementById("runButton").firstChild;
 var numberOfChairs = document.getElementById("numberOfChairs");
 var intervalAmount = document.getElementById("intervalAmount");
@@ -168,14 +168,13 @@ function updateN(newN) {
 }
 
 function updateInterval(newInterval) {
-    if(parseInt(newInterval) >= 0){
+    if (parseInt(newInterval) >= 0) {
         interval = parseInt(newInterval);
         if (running) {
-        game.time.events.remove(previousEvent);
-        previousEvent = game.time.events.repeat(interval + 2000, chairs.length - 1, animateRemoval, this);
+            game.time.events.remove(previousEvent);
+            previousEvent = game.time.events.repeat(interval + 2000, chairs.length - 1, animateRemoval, this);
         }
-    }
-    else{
+    } else {
         intervalAmount.value = defaultInterval;
         updateInterval(defaultInterval);
     }
@@ -190,7 +189,7 @@ function resetState() {
     count = defaultCount;
 }
 
-function resizeGame() {
+function resizeCanvas() {
     var height = phaserDiv.clientHeight;
     var width = phaserDiv.clientWidth;
     game.width = width;
@@ -212,29 +211,21 @@ function updateChairs(size) {
     });
 }
 
-function stepInterval(event){
+function stepInterval(event) {
     var keycode;
-    if (window.event)
-        keycode = window.event.keyCode;
-    else if (e)
-        keycode = e.which;
-
-    if(keycode==38)
-    {
+    if (window.event) keycode = window.event.keyCode;
+    else if (e) keycode = e.which;
+    if (keycode == 38) {
         // Up : Increase by 100
-        intervalAmount.value = interval+100;
-        updateInterval(interval+100);
+        intervalAmount.value = interval + 100;
+        updateInterval(interval + 100);
         return true;
-    }
-    else if(keycode == 40)
-    {
+    } else if (keycode == 40) {
         // Down : Decrease by 100
-        intervalAmount.value = interval-100;
-        updateInterval(interval-100);
+        intervalAmount.value = interval - 100;
+        updateInterval(interval - 100);
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
