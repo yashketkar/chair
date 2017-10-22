@@ -25,7 +25,9 @@ This simulation represents a modified version of the Josephus problem. Given the
 
 ## DESIGN INFORMATION:
 Typography - The font (Source Sans Pro) can be found using google fonts. Adding the following to the HEAD of the page will load the correct fonts to use:
+```
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" rel="stylesheet">
+```
 If you are unfamiliar with google fonts, the documentation can be found here: https://developers.google.com/fonts/docs/getting_started
 
 * Headline

@@ -18,6 +18,8 @@ var index;
 var count;
 var previousEvent;
 var chairs;
+var s = [];
+var t = [];
 updateChairs(N);
 
 function preload() {
@@ -34,9 +36,6 @@ function drawChairs(N) {
     var yplus = game.height / 2;
     var r = Math.min(xplus, yplus) - 60;
     var textGap = 20;
-    console.log(r);
-    var s = [];
-    var t = [];
     var l = 2 * Math.PI * r / N;
     l = Math.floor(l) - 1;
     var style = {
@@ -88,12 +87,15 @@ function runSimulation() {
         count = defaultCount;
         runButtonText.data = "Pause Simulation";
         game.time.events.remove(previousEvent);
-        previousEvent = game.time.events.repeat(interval, chairs.length - 1, removeChair, this);
+        previousEvent = game.time.events.repeat(interval + 1000, chairs.length - 1, animateRemoval, this);
         running = true;
     }
 }
 
 function removeChair() {
+    console.log("removeChair");
+    console.log(chairs[index]);
+
     game.world.removeAll();
     N -= 1;
     chairs.splice(index, 1);
@@ -107,6 +109,14 @@ function removeChair() {
     }
 }
 
+function animateRemoval() {
+    console.log("animateRemoval");
+    console.log(chairs[index]);
+    game.add.tween(s[index]).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+    game.add.tween(t[index]).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+    game.time.events.add(Phaser.Timer.SECOND, removeChair, this);
+}
+
 function updateN(newN) {
     N = parseInt(newN);
     updateChairs(N);
@@ -118,10 +128,11 @@ function updateN(newN) {
 }
 
 function updateInterval(newInterval) {
-    interval = newInterval;
+    console.log(game.time.events);
+    interval = parseInt(newInterval);
     if (running) {
         game.time.events.remove(previousEvent);
-        previousEvent = game.time.events.repeat(interval, chairs.length - 1, removeChair, this);
+        previousEvent = game.time.events.repeat(interval + 1000, chairs.length - 1, animateRemoval, this);
     }
 }
 
