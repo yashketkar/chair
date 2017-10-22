@@ -168,10 +168,16 @@ function updateN(newN) {
 }
 
 function updateInterval(newInterval) {
-    interval = parseInt(newInterval);
-    if (running) {
+    if(parseInt(newInterval) >= 0){
+        interval = parseInt(newInterval);
+        if (running) {
         game.time.events.remove(previousEvent);
         previousEvent = game.time.events.repeat(interval + 2000, chairs.length - 1, animateRemoval, this);
+        }
+    }
+    else{
+        intervalAmount.value = defaultInterval;
+        updateInterval(defaultInterval);
     }
 }
 
@@ -204,4 +210,31 @@ function updateChairs(size) {
     chairs = Array.apply(null, Array(size)).map(function(_, i) {
         return i + 1;
     });
+}
+
+function stepInterval(event){
+    var keycode;
+    if (window.event)
+        keycode = window.event.keyCode;
+    else if (e)
+        keycode = e.which;
+
+    if(keycode==38)
+    {
+        // Up : Increase by 100
+        intervalAmount.value = interval+100;
+        updateInterval(interval+100);
+        return true;
+    }
+    else if(keycode == 40)
+    {
+        // Down : Decrease by 100
+        intervalAmount.value = interval-100;
+        updateInterval(interval-100);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
