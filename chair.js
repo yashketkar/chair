@@ -97,48 +97,6 @@ function drawChairs(N) {
     }
 }
 
-function moveChairs(N) {
-    var xplus = game.width / 2;
-    var yplus = game.height / 2;
-    var r = Math.min(xplus, yplus) - 60;
-    var textGap = 20;
-    var l = 2 * Math.PI * r / N;
-    l = Math.floor(l) - 1;
-    var style = {
-        font: "Source Sans Pro",
-        fontWeight: 300,
-        fontSize: "16px",
-        fill: "#000000"
-    };
-    var theta = 0;
-    for (i = 0; i < N; i++) {
-        var x = r * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
-        var y = r * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
-        if (r >= 220) {
-            s[i].scale.setTo(1 / 30, 1 / 30);
-        } else if (r > 120) {
-            s[i].scale.setTo(1 / 60, 1 / 60);
-            style["fontSize"] = "8px";
-            textGap = 10;
-        } else {
-            s[i].scale.setTo(1 / 90, 1 / 90);
-            style["fontSize"] = "6px";
-            textGap = 6.67;
-        }
-        s[i].anchor.set(0.5, 0.5);
-        s[i].angle = 0;
-        s[i].angle += theta;
-        var x2 = (r + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
-        var y2 = (r + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
-        t[i].anchor.set(0.5, 0.5);
-        t[i].x = xplus + x2;
-        t[i].y = yplus + y2;
-        theta -= 360 / N;
-
-    }
-}
-
-
 function runSimulation() {
     if (runButtonText.data == "Run Simulation" && running == true) {
         runButtonText.data = "Pause Simulation";
@@ -158,9 +116,6 @@ function runSimulation() {
 }
 
 function removeChair() {
-    console.log(N);
-    console.log(chairs.length);
-    
     if(N>1){
     N -= 1;
     chairs.splice(index, 1);
@@ -227,7 +182,6 @@ function resizeGame() {
         Phaser.Canvas.setSmoothingEnabled(game.context, false);
     }
     game.camera.setSize(width, height);
-    // game.world.removeAll();
     drawChairs(N);
 }
 
