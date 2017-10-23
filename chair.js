@@ -14,6 +14,7 @@ var defaultCount = 1;
 var N = defaultN;
 var interval = defaultInterval;
 var running = false;
+var fromSingleStep = false;
 var index;
 var count;
 var previousEvent;
@@ -28,6 +29,8 @@ function preload() {
 
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
+    index = defaultIndex;
+    count = defaultCount;
     drawChairs(N);
 }
 
@@ -48,7 +51,7 @@ function drawChairs(N) {
     for (i = 0; i < N; i++) {
         var x = r * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y = r * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
-        if (!running) {
+        if (!running && !fromSingleStep) {
             s[i] = game.add.sprite(xplus + x, yplus + y, "chair");
         }
         if (r >= 220) {
@@ -63,7 +66,7 @@ function drawChairs(N) {
             textGap = 6.67;
         }
         s[i].anchor.set(0.5, 0.5);
-        if (!running) {
+        if (!running && !fromSingleStep) {
             s[i].x = xplus + x;
             s[i].y = yplus + y;
         } else {
@@ -72,14 +75,14 @@ function drawChairs(N) {
         s[i].angle += theta;
         var x2 = (r + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y2 = (r + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
-        if (!running) {
+        if (!running && !fromSingleStep) {
             t[i] = game.add.text(xplus + x2, yplus + y2, chairs[i], style);
         }
         t[i].anchor.set(0.5, 0.5);
         t[i].x = xplus + x2;
         t[i].y = yplus + y2;
         theta -= 360 / N;
-        if (running) {
+        if (running || fromSingleStep) {
             var newX = xplus + x;
             var newY = yplus + y;
             var newX2 = xplus + x2;
@@ -138,6 +141,7 @@ function removeChair() {
         running = false;
         runButtonText.data = "Run Simulation";
     }
+    fromSingleStep = false;
 }
 
 function animateRemoval() {
@@ -157,6 +161,8 @@ function updateN(newN) {
         numberOfChairs.value = defaultN;
         updateN(defaultN);
     } else {
+        index = defaultIndex;
+        count = defaultCount;
         N = parseInt(newN);
         updateChairs(N);
         game.time.events.removeAll();
@@ -185,8 +191,6 @@ function resetState() {
     updateN(defaultN);
     intervalAmount.value = defaultInterval;
     updateInterval(defaultInterval);
-    index = defaultIndex;
-    count = defaultCount;
 }
 
 function resizeCanvas() {
@@ -222,10 +226,21 @@ function stepInterval(event) {
         return true;
     } else if (keycode == 40) {
         // Down : Decrease by 100
-        intervalAmount.value = interval - 100;
-        updateInterval(interval - 100);
-        return true;
+        if (interval - 100 >= 0) {
+            intervalAmount.value = interval - 100;
+            updateInterval(interval - 100);
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
+}
+
+function singleStep() {
+    if (!running) {
+        fromSingleStep = true;
+    }
+    removeChair();
 }
