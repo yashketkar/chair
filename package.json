@@ -1,0 +1,33 @@
+{
+    "name":"chair",
+    "version":"1.0.0",
+    "description":"The 100 Chair Problem",
+    "main":"index.js",
+    "dependencies":{
+        "ejs":"2.5.7",
+        "express":"4.16.2"
+    },
+    "scripts":{
+        "start": "node index.js",
+        "test":"echo \"Error: no test specified\" && exit 1"
+    },
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/yashketkar/chair.git"
+    },
+    "keywords":[
+        "html",
+        "javascript",
+        "css",
+        "node",
+        "heroku",
+        "express",
+        "phaser-ce",
+        "bootstrap"
+    ],
+    "author":"Yash Ketkar",
+    "bugs":{
+        "url":"https://github.com/yashketkar/chair/issues"
+    },
+    "homepage":"https://github.com/yashketkar/chair#readme"
+}
