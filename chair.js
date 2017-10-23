@@ -19,8 +19,8 @@ var index;
 var count;
 var previousEvent;
 var chairs;
-var s = [];
-var t = [];
+var chairSprites = [];
+var textSprites = [];
 updateChairs(N);
 
 function preload() {
@@ -35,9 +35,9 @@ function create() {
 }
 
 function drawChairs(N) {
-    var xplus = game.width / 2;
-    var yplus = game.height / 2;
-    var r = Math.min(xplus, yplus) - 60;
+    var offsetX = game.width / 2;
+    var offsetY = game.height / 2;
+    var r = Math.min(offsetX, offsetY) - 60;
     var textGap = 20;
     var l = 2 * Math.PI * r / N;
     l = Math.floor(l) - 1;
@@ -52,41 +52,41 @@ function drawChairs(N) {
         var x = r * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y = r * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
         if (!running && !fromSingleStep) {
-            s[i] = game.add.sprite(xplus + x, yplus + y, "chair");
+            chairSprites[i] = game.add.sprite(offsetX + x, offsetY + y, "chair");
         }
         if (r >= 220) {
-            s[i].scale.setTo(1 / 30, 1 / 30);
+            chairSprites[i].scale.setTo(1 / 30, 1 / 30);
         } else if (r > 120) {
-            s[i].scale.setTo(1 / 60, 1 / 60);
+            chairSprites[i].scale.setTo(1 / 60, 1 / 60);
             style["fontSize"] = "8px";
             textGap = 10;
         } else {
-            s[i].scale.setTo(1 / 90, 1 / 90);
+            chairSprites[i].scale.setTo(1 / 90, 1 / 90);
             style["fontSize"] = "6px";
             textGap = 6.67;
         }
-        s[i].anchor.set(0.5, 0.5);
+        chairSprites[i].anchor.set(0.5, 0.5);
         if (!running && !fromSingleStep) {
-            s[i].x = xplus + x;
-            s[i].y = yplus + y;
+            chairSprites[i].x = offsetX + x;
+            chairSprites[i].y = offsetY + y;
         } else {
-            s[i].angle = 0;
+            chairSprites[i].angle = 0;
         }
-        s[i].angle += theta;
+        chairSprites[i].angle += theta;
         var x2 = (r + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
         var y2 = (r + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
         if (!running && !fromSingleStep) {
-            t[i] = game.add.text(xplus + x2, yplus + y2, chairs[i], style);
+            textSprites[i] = game.add.text(offsetX + x2, offsetY + y2, chairs[i], style);
         }
-        t[i].anchor.set(0.5, 0.5);
-        t[i].x = xplus + x2;
-        t[i].y = yplus + y2;
+        textSprites[i].anchor.set(0.5, 0.5);
+        textSprites[i].x = offsetX + x2;
+        textSprites[i].y = offsetY + y2;
         theta -= 360 / N;
         if (running || fromSingleStep) {
-            var newX = xplus + x;
-            var newY = yplus + y;
-            var newX2 = xplus + x2;
-            var newY2 = yplus + y2;
+            var newX = offsetX + x;
+            var newY = offsetY + y;
+            var newX2 = offsetX + x2;
+            var newY2 = offsetY + y2;
             tweenProperties = {
                 x: parseInt(newX),
                 y: parseInt(newY)
@@ -95,8 +95,8 @@ function drawChairs(N) {
                 x: parseInt(newX2),
                 y: parseInt(newY2)
             };
-            var tween1 = game.tweens.create(s[i]);
-            var tween2 = game.tweens.create(t[i]);
+            var tween1 = game.tweens.create(chairSprites[i]);
+            var tween2 = game.tweens.create(textSprites[i]);
             tween1.to(tweenProperties, 1000, Phaser.Easing.Linear.None, false);
             tween2.to(tweenProperties2, 1000, Phaser.Easing.Linear.None, false);
             tween1.start();
@@ -128,10 +128,10 @@ function removeChair() {
     if (N > 1) {
         N -= 1;
         chairs.splice(index, 1);
-        s[index].destroy();
-        s.splice(index, 1);
-        t[index].destroy();
-        t.splice(index, 1);
+        chairSprites[index].destroy();
+        chairSprites.splice(index, 1);
+        textSprites[index].destroy();
+        textSprites.splice(index, 1);
         index += count;
         index = index % chairs.length;
         count += 1;
@@ -146,10 +146,10 @@ function removeChair() {
 
 function animateRemoval() {
     if (N > 1) {
-        game.add.tween(s[index]).to({
+        game.add.tween(chairSprites[index]).to({
             alpha: 0
         }, 1000, Phaser.Easing.Linear.None, true);
-        game.add.tween(t[index]).to({
+        game.add.tween(textSprites[index]).to({
             alpha: 0
         }, 1000, Phaser.Easing.Linear.None, true);
     }
