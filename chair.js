@@ -37,11 +37,9 @@ function create() {
 function drawChairs(N) {
     var offsetX = game.width / 2;
     var offsetY = game.height / 2;
-    var r = Math.min(offsetX, offsetY) - 60;
+    var radius = Math.min(offsetX, offsetY) - 60;
     var textGap = 20;
-    var l = 2 * Math.PI * r / N;
-    l = Math.floor(l) - 1;
-    var style = {
+    var textSpriteStyle = {
         font: "Source Sans Pro",
         fontWeight: 300,
         fontSize: "16px",
@@ -49,58 +47,58 @@ function drawChairs(N) {
     };
     var theta = 0;
     for (i = 0; i < N; i++) {
-        var x = r * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
-        var y = r * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
+        var chairSpriteX = radius * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
+        var chairSpriteY = radius * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
         if (!running && !fromSingleStep) {
-            chairSprites[i] = game.add.sprite(offsetX + x, offsetY + y, "chair");
+            chairSprites[i] = game.add.sprite(offsetX + chairSpriteX, offsetY + chairSpriteY, "chair");
         }
-        if (r >= 220) {
+        if (radius >= 220) {
             chairSprites[i].scale.setTo(1 / 30, 1 / 30);
-        } else if (r > 120) {
+        } else if (radius > 120) {
             chairSprites[i].scale.setTo(1 / 60, 1 / 60);
-            style["fontSize"] = "8px";
+            textSpriteStyle["fontSize"] = "8px";
             textGap = 10;
         } else {
             chairSprites[i].scale.setTo(1 / 90, 1 / 90);
-            style["fontSize"] = "6px";
+            textSpriteStyle["fontSize"] = "6px";
             textGap = 6.67;
         }
         chairSprites[i].anchor.set(0.5, 0.5);
         if (!running && !fromSingleStep) {
-            chairSprites[i].x = offsetX + x;
-            chairSprites[i].y = offsetY + y;
+            chairSprites[i].x = offsetX + chairSpriteX;
+            chairSprites[i].y = offsetY + chairSpriteY;
         } else {
             chairSprites[i].angle = 0;
         }
         chairSprites[i].angle += theta;
-        var x2 = (r + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
-        var y2 = (r + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
+        var textSpriteX = (radius + textGap) * Math.cos(Math.PI / 2 + Math.PI * theta / 180);
+        var textSpriteY = (radius + textGap) * Math.sin(Math.PI / 2 + Math.PI * theta / 180);
         if (!running && !fromSingleStep) {
-            textSprites[i] = game.add.text(offsetX + x2, offsetY + y2, chairs[i], style);
+            textSprites[i] = game.add.text(offsetX + textSpriteX, offsetY + textSpriteY, chairs[i], textSpriteStyle);
         }
         textSprites[i].anchor.set(0.5, 0.5);
-        textSprites[i].x = offsetX + x2;
-        textSprites[i].y = offsetY + y2;
+        textSprites[i].x = offsetX + textSpriteX;
+        textSprites[i].y = offsetY + textSpriteY;
         theta -= 360 / N;
         if (running || fromSingleStep) {
-            var newX = offsetX + x;
-            var newY = offsetY + y;
-            var newX2 = offsetX + x2;
-            var newY2 = offsetY + y2;
-            tweenProperties = {
-                x: parseInt(newX),
-                y: parseInt(newY)
+            var nextChairSpriteX = offsetX + chairSpriteX;
+            var nextChairSpriteY = offsetY + chairSpriteY;
+            var nextTextSpriteX = offsetX + textSpriteX;
+            var nextTextSpriteY = offsetY + textSpriteY;
+            chairSpriteTweenProperties = {
+                x: parseInt(nextChairSpriteX),
+                y: parseInt(nextChairSpriteY)
             };
-            tweenProperties2 = {
-                x: parseInt(newX2),
-                y: parseInt(newY2)
+            textSpriteTweenProperties = {
+                x: parseInt(nextTextSpriteX),
+                y: parseInt(nextTextSpriteY)
             };
-            var tween1 = game.tweens.create(chairSprites[i]);
-            var tween2 = game.tweens.create(textSprites[i]);
-            tween1.to(tweenProperties, 1000, Phaser.Easing.Linear.None, false);
-            tween2.to(tweenProperties2, 1000, Phaser.Easing.Linear.None, false);
-            tween1.start();
-            tween2.start();
+            var chairSpriteTween = game.tweens.create(chairSprites[i]);
+            var textSpriteTween = game.tweens.create(textSprites[i]);
+            chairSpriteTween.to(chairSpriteTweenProperties, 1000, Phaser.Easing.Linear.None, false);
+            textSpriteTween.to(textSpriteTweenProperties, 1000, Phaser.Easing.Linear.None, false);
+            chairSpriteTween.start();
+            textSpriteTween.start();
         }
     }
 }
