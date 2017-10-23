@@ -1,3 +1,8 @@
+/**
+ * @fileOverview The logic for the 100 chair problem.
+ * @author <a href="mailto:yashketkar@hotmail.com">Yash Ketkar</a>
+ * @version 1.0.0
+ */
 var phaserDiv = document.getElementById("phaser-div");
 var game = new Phaser.Game(phaserDiv.clientWidth, phaserDiv.clientHeight, Phaser.CANVAS, 'phaser-div', {
     preload: preload,
@@ -22,18 +27,33 @@ var chairs;
 var chairSprites = [];
 var textSprites = [];
 updateChairs(N);
-
+/**
+ * This function is called during the "preload" state of the phaser lifecycle.
+ * It loads the chair asset from the url.
+ * @returns Nothing.
+ */
 function preload() {
     game.load.image('chair', 'https://media1.popsugar-assets.com/static/imgs/interview/chair.png');
 }
-
+/**
+ * This function is called during the "create" state of the phaser lifecycle.
+ * It sets the index and count to the default and then
+ * @returns Nothing.
+ */
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
     index = defaultIndex;
     count = defaultCount;
     drawChairs(N);
 }
-
+/**
+ * This function draws the chairs on the phaser canvas based on the updated
+ * number of chairs.
+ * It is called during various stages of the lifecycle to update the canvas
+ * based on current values.
+ * @param {int} N The number of chairs to draw..
+ * @returns Nothing.
+ */
 function drawChairs(N) {
     var offsetX = game.width / 2;
     var offsetY = game.height / 2;
@@ -102,7 +122,11 @@ function drawChairs(N) {
         }
     }
 }
-
+/**
+ * This function is called when the "Run Simulation" button is clicked.
+ * It controls the starting, pausing and resuming of the simulation.
+ * @returns Nothing.
+ */
 function runSimulation() {
     if (runButtonText.data == "Run Simulation" && running == true) {
         runButtonText.data = "Pause Simulation";
@@ -121,7 +145,10 @@ function runSimulation() {
         running = true;
     }
 }
-
+/**
+ * This function removes the next chair to be removed from the canvas.
+ * @returns Nothing.
+ */
 function removeChair() {
     if (N > 1) {
         N -= 1;
@@ -141,7 +168,10 @@ function removeChair() {
     }
     fromSingleStep = false;
 }
-
+/**
+ * This function animates the chair removal process.
+ * @returns Nothing.
+ */
 function animateRemoval() {
     if (N > 1) {
         game.add.tween(chairSprites[index]).to({
@@ -153,7 +183,11 @@ function animateRemoval() {
     }
     game.time.events.add(Phaser.Timer.SECOND, removeChair, this);
 }
-
+/**
+ * This function is called when there are updates to the textbox
+ * for the number of chairs.
+ * @returns Nothing.
+ */
 function updateN(newN) {
     if (newN == '') {
         numberOfChairs.value = defaultN;
@@ -170,7 +204,11 @@ function updateN(newN) {
         drawChairs(N);
     }
 }
-
+/**
+ * This function is called when there are updates to the textbox
+ * for the interval between eliminations.
+ * @returns Nothing.
+ */
 function updateInterval(newInterval) {
     if (parseInt(newInterval) >= 0) {
         interval = parseInt(newInterval);
@@ -183,14 +221,21 @@ function updateInterval(newInterval) {
         updateInterval(defaultInterval);
     }
 }
-
+/**
+ * This function resets the simulation to the default state.
+ * @returns Nothing.
+ */
 function resetState() {
     numberOfChairs.value = defaultN;
     updateN(defaultN);
     intervalAmount.value = defaultInterval;
     updateInterval(defaultInterval);
 }
-
+/**
+ * This function updates the phaser canvas based on the
+ * current height and width.
+ * @returns Nothing.
+ */
 function resizeCanvas() {
     var height = phaserDiv.clientHeight;
     var width = phaserDiv.clientWidth;
@@ -206,13 +251,19 @@ function resizeCanvas() {
     }
     drawChairs(N);
 }
-
+/**
+ * This function updates the string array for each chair's number text.
+ * @returns Nothing.
+ */
 function updateChairs(size) {
     chairs = Array.apply(null, Array(size)).map(function(_, i) {
         return i + 1;
     });
 }
-
+/**
+ * This function handles steps of 100 for interval input.
+ * @returns Nothing.
+ */
 function stepInterval(event) {
     var keycode;
     if (window.event) keycode = window.event.keyCode;
@@ -235,7 +286,10 @@ function stepInterval(event) {
         return false;
     }
 }
-
+/**
+ * This function handles the click of "Single Step" button.
+ * @returns Nothing.
+ */
 function singleStep() {
     if (!running) {
         fromSingleStep = true;
