@@ -1,5 +1,20 @@
 # The 100 Chair Problem
 
+## THE SOLUTION:
+* Code Pen (Editor View): https://codepen.io/yashketkar/pen/pWBBrz
+* Code Pen (Full View): https://codepen.io/yashketkar/full/pWBBrz/
+* App Deployed on Heroku: https://blooming-shelf-17126.herokuapp.com
+
+Libraries used:
+* Bootstrap 4.0.0 beta:
+```
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+```
+* Phaser CE 2.9.1:
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser-ce/2.9.1/phaser.min.js" type="text/javascript"></script>
+```
+
 ## THE PROBLEM:
 Imagine there are people sitting in N chairs arranged in a circle. Each chair is evenly spaced apart from its neighbors. Additionally, each chair is given an number starting with 1 and increasing by 1 to N, such that the chair to the right of a person sitting in chair 1 is numbered 2.
 
