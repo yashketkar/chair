@@ -26,14 +26,12 @@ body {
     height: 100vh;
 }
 #phaser-div>canvas {
-    /*border: 1px solid #d3d3d3;*/
     margin: 0 auto;
     height: 100vh;
 }
 /*Headline*/
 #headline {
     font-family: 'Source Sans Pro', serif;
-    font-size: 48px;
     font-weight: 600;
     font-size: 24px;
     color: #62687C;
@@ -80,21 +78,11 @@ body {
     font-weight: 300;
     font-size: 16px;
     color: #FFFFFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #24C4F8;
-    *background-color: #24C4F8;
-    background-image: -moz-linear-gradient(top, #34C9F9, #24C4F8);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#34C9F9), to(#24C4F8));
-    background-image: -webkit-linear-gradient(top, #34C9F9, #24C4F8);
-    background-image: -o-linear-gradient(top, #34C9F9, #24C4F8);
     background-image: linear-gradient(to bottom, #34C9F9, #24C4F8);
-    background-repeat: repeat-x;
     border-color: #12B9EF;
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#34C9F9', endColorstr='#24C4F8', GradientType=0);
-    filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .btn-single:hover, .btn-single:focus, .btn-single:active, .btn-single.active, .btn-single.disabled, .btn-single[disabled] {
     color: #FFFFFF;
-    background-color: #24C4F8;
-    *background-color: #003bb3;
+    background-image: linear-gradient(to bottom, #34C9F9, #24C4F8);
+    border-color: #12B9EF;
 }
